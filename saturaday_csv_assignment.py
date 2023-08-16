@@ -1,12 +1,22 @@
 import csv
 
-with open('file.csv', 'r') as saturday_csv_assignment:
-    read_file = csv.reader(saturday_csv_assignment)
-    conversion = list(read_file)
+with open('file.csv', 'r') as file:
+    read_file = csv.reader(file)
+    data_list = list(read_file)
+print(data_list)
 
-checking_word = input('type your answer : ')
-for rows in conversion:
-    if checking_word not in rows:
-        with open('File,csv','w') as saturday_csv_assignment:
-            result = csv.writer(saturday_csv_assignment)
+words = input('type your words : ')
+words = words.split(',')
+for rows in data_list:
+    if words[0] == rows[0] and words[1] == rows[1]:
+        rows[2] = words[2]
+        print('csv updated with input value')
+        break
+else:
+    data_list.append(words)
+    print('input value doesn exist ,added as new value ')
 
+with open('file.csv', 'w', newline="") as f:
+    writer = csv.writer(f)
+    for rows in data_list:
+        writer.writerow(rows)
